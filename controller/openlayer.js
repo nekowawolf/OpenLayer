@@ -73,28 +73,59 @@ function setDefaultLocation() {
         });
 
         Swal.fire({
-          title: 'Lokasi Ditemukan!',
-          text: `Nama Lokasi: ${locationName}\nLong: ${longitude.toFixed(6)}, Lat: ${latitude.toFixed(6)}`,
+          title: `<span class="text-white">Lokasi Ditemukan!</span>`,
+          html: `
+            <div class="text-white">
+              Nama Lokasi: ${locationName}<br>
+              Long: ${longitude.toFixed(6)}, Lat: ${latitude.toFixed(6)}
+            </div>`,
           icon: 'success',
+          background: '#000000', // Black background
+          color: '#FFFFFF', // White text
           confirmButtonText: 'OK',
+          customClass: {
+            title: 'text-white',
+            htmlContainer: 'text-white',
+            confirmButton: 'bg-blue-500 text-white hover:bg-blue-600 rounded-md px-4 py-2',
+          },
         });
       },
       (error) => {
         console.error('Error mendapatkan lokasi:', error);
         Swal.fire({
-          title: 'Gagal Mendapatkan Lokasi',
-          text: 'Periksa pengaturan lokasi di perangkat Anda.',
+          title: `<span class="text-white">Gagal Mendapatkan Lokasi</span>`,
+          html: `
+            <div class="text-white">
+              Periksa pengaturan lokasi di perangkat Anda.
+            </div>`,
           icon: 'error',
+          background: '#000000', // Black background
+          color: '#FFFFFF', // White text
           confirmButtonText: 'OK',
+          customClass: {
+            title: 'text-white',
+            htmlContainer: 'text-white',
+            confirmButton: 'bg-red-500 text-white hover:bg-red-600 rounded-md px-4 py-2',
+          },
         });
       }
     );
   } else {
     Swal.fire({
-      title: 'Geolokasi Tidak Didukung',
-      text: 'Browser Anda tidak mendukung geolokasi.',
+      title: `<span class="text-white">Geolokasi Tidak Didukung</span>`,
+      html: `
+        <div class="text-white">
+          Browser Anda tidak mendukung geolokasi.
+        </div>`,
       icon: 'warning',
+      background: '#000000', // Black background
+      color: '#FFFFFF', // White text
       confirmButtonText: 'OK',
+      customClass: {
+        title: 'text-white',
+        htmlContainer: 'text-white',
+        confirmButton: 'bg-yellow-500 text-white hover:bg-yellow-600 rounded-md px-4 py-2',
+      },
     });
   }
 }
@@ -111,16 +142,16 @@ const markerLayer = new VectorLayer({
 map.addLayer(markerLayer);
 
 const popup = document.createElement('div');
-popup.className = 'popup fixed top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-lg p-6 w-80';
+popup.className = 'popup fixed top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black text-white shadow-lg rounded-lg p-6 w-80';
 popup.innerHTML = `
   <div>
-    <div id="info" class="mb-4 text-gray-700 text-sm"></div>
-    <label for="placeName" class="block text-sm font-medium text-gray-700">Nama:</label>
+    <div id="info" class="mb-4 text-gray-300 text-sm"></div>
+    <label for="placeName" class="block text-sm font-medium text-gray-300">Nama:</label>
     <input type="text" id="placeName" placeholder="Nama Tempat" 
-           class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" /><br />
-    <label for="volume" class="block text-sm font-medium text-gray-700 mt-4">Volume:</label>
+           class="mt-1 block w-full border border-gray-700 bg-gray-800 text-white rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" /><br />
+    <label for="volume" class="block text-sm font-medium text-gray-300 mt-4">Volume:</label>
     <input type="text" id="volume" placeholder="Volume" 
-           class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" /><br />
+           class="mt-1 block w-full border border-gray-700 bg-gray-800 text-white rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" /><br />
     <button id="saveButton" 
             class="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
       Input data
@@ -187,17 +218,38 @@ document.getElementById('saveButton').addEventListener('click', () => {
 
     overlay.setPosition(undefined); 
     Swal.fire({
-      title: 'Data Disimpan',
-      text: `Nama: ${placeName}\nVolume: ${fullVolume}`,
+      title: `<span class="text-white">Data Disimpan</span>`,
+      html: `
+        <div class="text-white">
+          Nama: ${placeName}<br>
+          Volume: ${fullVolume}
+        </div>`,
       icon: 'success',
+      background: '#000000', 
+      color: '#FFFFFF', 
       confirmButtonText: 'OK',
+      customClass: {
+        title: 'text-white',
+        htmlContainer: 'text-white',
+        confirmButton: 'bg-blue-500 text-white hover:bg-blue-600 rounded-md px-4 py-2',
+      },
     });
   } else {
     Swal.fire({
-      title: 'Error',
-      text: 'Silakan masukkan Nama dan Volume!',
+      title: `<span class="text-white">Error</span>`,
+      html: `
+        <div class="text-white">
+          Silakan masukkan Nama dan Volume!
+        </div>`,
       icon: 'error',
+      background: '#000000', 
+      color: '#FFFFFF', 
       confirmButtonText: 'OK',
+      customClass: {
+        title: 'text-white',
+        htmlContainer: 'text-white',
+        confirmButton: 'bg-red-500 text-white hover:bg-red-600 rounded-md px-4 py-2',
+      },
     });
   }
 });
@@ -209,10 +261,21 @@ map.on('singleclick', (event) => {
     if (data) {
       const { placeName, volume } = data;
       Swal.fire({
-        title: `Informasi Tempat`,
-        html: `<strong>Nama:</strong> ${placeName}<br><strong>Volume:</strong> ${volume}`,
+        title: `<span class="text-white">Informasi Tempat</span>`,
+        html: `
+          <div class="text-white">
+            <strong>Nama:</strong> ${placeName}<br>
+            <strong>Volume:</strong> ${volume}
+          </div>`,
         icon: 'info',
         confirmButtonText: 'OK',
+        background: '#000000', // Black background
+        color: '#FFFFFF', // White text
+        customClass: {
+          title: 'text-white',
+          htmlContainer: 'text-white',
+          confirmButton: 'bg-blue-500 text-white hover:bg-blue-600 rounded-md px-4 py-2',
+        },
       });
     }
   });
